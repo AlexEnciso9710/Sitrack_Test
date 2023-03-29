@@ -8,7 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RandomUserRemoteDataSource {
+class RandomUserRemoteDataSource {//Clase para obtener los datos de la URL con retrofit.
 
     suspend fun getRandomUser() = try {
         val retrofit = Retrofit.Builder().baseUrl("https://randomuser.me/")
@@ -23,12 +23,12 @@ class RandomUserRemoteDataSource {
         Error(exception)
     }
 
-    private fun getOkHttpClient() = OkHttpClient.Builder().apply {
+    private fun getOkHttpClient() = OkHttpClient.Builder().apply {//Constructor
         addInterceptor(getHttpInterceptor())
 
     }.build()
 
-    private fun getHttpInterceptor() = HttpLoggingInterceptor().apply {
+    private fun getHttpInterceptor() = HttpLoggingInterceptor().apply {//
         setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 }

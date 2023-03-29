@@ -8,7 +8,7 @@ import com.example.sample_mobiletest.domain.RandomUserRepository
 import com.example.sample_mobiletest.ui.MapsViewModel
 
 @Suppress("UNCHECKED_CAST")
-class MapsViewModelFactory : ViewModelProvider.Factory {
+class MapsViewModelFactory : ViewModelProvider.Factory {//Creación de MapsViewModelFactory
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
 

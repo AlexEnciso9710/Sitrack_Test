@@ -20,11 +20,11 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mGoogleMap: GoogleMap
+    private lateinit var mGoogleMap: GoogleMap//Se declara la variable del mapa como tipo de dato GoogleMap
 
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout//Se declara variable del swiperefresh como SwipeRefreshLayout
 
-    private lateinit var nameTextView: TextView
+    private lateinit var nameTextView: TextView//Se declaran las variables que se van a utilizar para mostrar en el activity.
     private lateinit var lastnameTextView: TextView
     private lateinit var streetTextView: TextView
     private lateinit var numberTextView: TextView
@@ -37,9 +37,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var phoneTextView: TextView
     private lateinit var imageshow: ImageView
 
-    private lateinit var mapsViewModel: MapsViewModel
+    private lateinit var mapsViewModel: MapsViewModel//Se declara la variable para el ViewModel de maps
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {//En onCreate se declara el ViewModelProvider.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -51,9 +51,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         initObservers()
 
         getUser()
+
     }
 
-    private fun bindView() {
+    private fun bindView() {//Con bindView se 
         nameTextView = findViewById(R.id.name)
         lastnameTextView = findViewById(R.id.LastName)
         streetTextView = findViewById(R.id.Street)
@@ -70,13 +71,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         swipeRefreshLayout = findViewById(R.id.swiperefresh)
     }
 
-    private fun initMapFragment() {
+    private fun initMapFragment() {//Asignación del mapa para mostrarlo en la Interfaz.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.Map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
     }
 
-    private fun initRefreshLayout() = swipeRefreshLayout.run {
+    private fun initRefreshLayout() = swipeRefreshLayout.run {//Creación del swipeRefreshLayout.
         setOnRefreshListener {
             getUser()
         }
@@ -90,9 +91,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun getUser() = mapsViewModel.getUser()
+    private fun getUser() = mapsViewModel.getUser()//Se llama a la función getuser que está en mapsViewModel.
 
-    private fun getInfoUserSuccess(infoUser: InfoUser) = infoUser.run {
+    private fun getInfoUserSuccess(infoUser: InfoUser) = infoUser.run {//Función para que cada dato se asigne al mostrador en la interfaz.
         nameTextView.text = name
         lastnameTextView.text = lastname
         ageTextView.text = age
@@ -110,19 +111,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         updateMarker(latitude, longitude, city)
     }
 
-    private fun updateMarker(latitude: Double, longitude: Double, city: String) = mGoogleMap.run {
+    private fun updateMarker(latitude: Double, longitude: Double, city: String) = mGoogleMap.run {//Función para crear el marcador.
         clear()
         val position = LatLng(latitude, longitude)
-        addMarker(MarkerOptions()
+        addMarker(MarkerOptions()//Añadir marcador con la posición y el nombre de la ciudad.
                         .position(position)
                         .title(city))
-        moveCamera(CameraUpdateFactory.newLatLng(position))
+        moveCamera(CameraUpdateFactory.newLatLng(position))//Mover la cámara del mapa hacia el marcador.
     }
 
 
-    private fun getInfoUserError(exception: Exception) = Toast.makeText(this, exception.message, Toast.LENGTH_SHORT).show()
+    private fun getInfoUserError(exception: Exception) = Toast.makeText(this, exception.message, Toast.LENGTH_SHORT).show()//Lo que se mostrará como texto al fallar la llamada
 
-    override fun onMapReady(googleMap: GoogleMap) {
+    override fun onMapReady(googleMap: GoogleMap) {//Creación y asignación del mapa a su variable.
         mGoogleMap = googleMap
     }
 }
